@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ty.mapper.CourseMapper">
+    <select id="findAll" resultType="OTD">
+        select a.*,b.type from t_course a,t_coursetype b where a.tid = b.tid
+        <if test="cname != null and cname != ''">
+            and cname like "%${cname}"
+        </if>
+    </select>
+</mapper>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body style="background-color: RGB(239,239,239)">
+<form method="post" id="fom">
+    <script type="text/javascript" th:src="@{../static/jq.js}"></script>
+    <input type="hidden" id="pn" name="pageNum">
+    <table border="1px" cellspacing="0px" cellpadding="0px" width="600px" align="center">
+        <tr>
+            <td>课程</td>
+            <td>价格</td>
+            <td>图片</td>
+            <td>类型</td>
+            <td>操作</td>
+        </tr>
+
+        <tr th:each="course:${pageInfo.list}">
+            <td th:text="${course.cname}"></td>
+            <td th:text="${course.price}"></td>
+            <td><img th:src="@{'/images/'+${course.img}}" width="150px"></td>
+            <td th:text="${course.type}"></td>
+
+            <td>
+                <input type="submit" value="删除" th:formaction="|@{'course/'}|">
+                <input type="submit" value="修改" th:formaction="|@{'course/'}|">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5">
+                <input type="submit" value="添加" th:formaction="|@{'course/'}|">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5">
+                <input type="button" value="上一页" th:onclick="|jump(${pageInfo.prePage})|">
+                <input type="button" value="首页" th:onclick="|jump(${pageInfo.firstPage})|">
+                <input type="button" value="尾页" th:onclick="|jump(${pageInfo.lastPage})|">
+                <input type="button" value="下一页" th:onclick="|jump(${pageInfo.nextPage})|">
+            </td>
+        </tr>
+    </table>
+</form>
+<script>
+    function jump(pageNum) {
+        if (pageNum!=0){
+            $("#pn").val(pageNum)
+            $("#fom").submit()
+        }
+    }
+</script>
+</body>
+</html>
